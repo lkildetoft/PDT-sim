@@ -1,17 +1,15 @@
-//
-//  Simulation.c
-//  PDT-SIM
-//
-//  Created by Love Kildetoft on 2022-11-24.
-//
-
 #include "Distrs.h"
 #include "Simulation.h"
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
-
+/*
+Author: Love Kildetoft
+*/
 float randChoice(float *randlist, float *weights, int len) {
+    /*
+    Generate weighted random numbers.  
+    */
     int low = 0;
     int mid = 0;
     float wsum = 0;
@@ -38,6 +36,10 @@ float randChoice(float *randlist, float *weights, int len) {
 };
 
 void genPhaseVals(float *plist, int size, float lim, float g) {
+    /*
+    Modify an empty float array to contain scattering phase function
+    values. 
+    */
     int n = 0;
     for (float i = -1*lim; i < lim; i+=(2*lim/size)) {
         plist[n++] = phaseFunc(i, g);
@@ -45,6 +47,10 @@ void genPhaseVals(float *plist, int size, float lim, float g) {
 };
 
 void genExpVals(float *glist, int size, float lim, float mue) {
+    /*
+    Modify an empty float array to contain exponentially distributed
+    path values.
+    */
     int n = 0;
     for (float i = 0; i < lim; i+=(lim/size)) {
         glist[n++] = expFunc(i, mue);
@@ -52,6 +58,10 @@ void genExpVals(float *glist, int size, float lim, float mue) {
 };
 
 void interact(struct photon *p, struct medium *m, float *paths, float *expvals, float *angles, float *phasevals, int len) {
+    /*
+    Simulates the interaction of photons in a medium with appropriate parameters.
+    A "photon" is absorbed and scattered at each call.
+    */
     float w = p->w;
     
     float mua = m->mua;
@@ -59,15 +69,12 @@ void interact(struct photon *p, struct medium *m, float *paths, float *expvals, 
     float mue = mua + mus;
     
     float theta = randChoice(angles, phasevals, len);
-    //float phi = ((float)rand()/(RAND_MAX))*2*pi;
+
     float l = -1*log(randChoice(paths, expvals, len))/(mue);
     float xs = l*sin(theta);
     float ys = l*cos(theta);
-    //float zs = l*cos(theta);
 
     p->w -= (mua/mue)*w;
     p->x += xs;
     p->y += ys;
-    //p->z += zs;
-    
 };

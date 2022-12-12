@@ -1,10 +1,3 @@
-//
-//  main.c
-//  PDT-SIM
-//
-//  Created by Love Kildetoft on 2022-11-23.
-//
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "Distrs.h"
@@ -15,7 +8,38 @@
 #include <omp.h>
 
 int main(int argc, const char * argv[]) {
-    int niters = 500;
+    /* 
+    
+    PDT-SIM: A Monte-Carlo simulation of light propagation in tissues 
+    Based on MCML by Steven Jaques et. al. 
+    
+    Author: Love Kildetoft 
+    
+    Usage: 
+
+    niters: sets number of iterations for the simulation. Needs to be set for the simulation to run.
+    IMPORTANT: This variable greatly affects output file size as the data is 
+    currently saved as .txt files. Tread carefully!
+
+    nvals: number of values to be used for paths/angles. 1000 is usually good so can be left as is
+    with good conscience. 
+
+    nphotons: sets number of photons to be used. 
+    IMPORTANT: This variable greatly affects output file size as the data is 
+    currently saved as .txt files. Tread carefully!
+
+    Each medium is specified as a struct which is given a scattering coefficient, an absorption
+    coefficient and their minimum/maximum positions. Tumour and sensitizer is assumed spherical.
+
+    Each photon can be given a start position below. To see the exact usage, see the simulation.h
+    header. 
+
+    Outputs four text files containing the x and y positions of scattered and absorbed photons
+    at each iteration respectively. This can then be read and plotted using the included Python 
+    routines. 
+
+    */
+    int niters = 500; 
     int nvals = 1000;
     int nphotons = 1000000;
     srand((unsigned)time(NULL));
@@ -27,7 +51,7 @@ int main(int argc, const char * argv[]) {
     FILE *yPosAbs = fopen("/Users/lovekildetoft/MedOpts/PDT-SIM/yPosAbs.txt", "w");
     
     photon *photons = calloc(nphotons, sizeof(photon));
-    medium *tissue = &(medium){0.56, (9.2-0.9), 0, 3, 0, 4};
+    medium *tissue = &(medium){0.56, (9.2-0.9), 0, 3, 0, 4}; 
     medium *tumor = &(medium){1.3, (10-0.9), 0.5, 2.5, 1, 3};
     medium *sensitizer = &(medium){20, (10-0.9), 0.6, 2.4, 1.1, 2.9};
     
@@ -73,10 +97,8 @@ int main(int argc, const char * argv[]) {
 
         #pragma omp parallel for
         for (int q = 0; q < nphotons; q++) {
-            //printf("Photon %d \n", q);
             photon *p;
             p = &photons[q];
-            //printf("%d \n", p.exist);
 
             if ((p->w > 0.2) && (p->outside == 0)) {
                 xPosScatTmp[q] = p->x;
