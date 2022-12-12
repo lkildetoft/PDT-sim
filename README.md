@@ -1,6 +1,4 @@
 # PDT-sim
-
-### Love Kildetoft
 A Monte-Carlo simulation of the light distribution in photodynamic therapy. Based on MCML by Steven Jaques et. al.
 #### Performed as part of a project in the Medical Optics course at Lund University. Full report about the development can be found at
 https://www.overleaf.com/read/vffgvwkdnzwj
