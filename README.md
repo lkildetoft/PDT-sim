@@ -1,4 +1,6 @@
 # PDT-sim
+Licensed under the MIT License.
+
 A Monte-Carlo simulation of the light distribution in photodynamic therapy (see for example https://www.cancer.gov/about-cancer/treatment/types/photodynamic-therapy). 
 
 Based on MCML by Steven Jaques et. al (https://www.sciencedirect.com/science/article/pii/016926079501640F).
