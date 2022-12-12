@@ -1,5 +1,5 @@
 # PDT-sim
-A Monte-Carlo simulation of the light distribution in photodynamic therapy. Based on MCML by Steven Jaques et. al.
+A Monte-Carlo simulation of the light distribution in photodynamic therapy (see for example https://www.cancer.gov/about-cancer/treatment/types/photodynamic-therapy). Based on MCML by Steven Jaques et. al (https://www.sciencedirect.com/science/article/pii/016926079501640F).
 #### Performed as part of a project in the Medical Optics course at Lund University. Full report about the development can be found at
 https://www.overleaf.com/read/vffgvwkdnzwj
 
